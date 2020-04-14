@@ -1,0 +1,143 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+	height: 100vh;
+	overflow: hidden;
+	font-family: 'Roboto', sans-serif;
+
+	--grey: #ddd;
+	--grey-dark: #ccc;
+	--grey-dark-hover: #ccc;
+	--grey-dark-active: #bbb;
+	--thematic: #1955cd;
+	--thematic-dark: #204183;
+
+	--dataList-width: 330px;
+	--header-height: 60px;
+	--settings-width: 180px;
+	--settings-button-width: 100px;
+	--animaiton-button-width: 140px;
+	--animaiton-button-height: 42px;
+	--animaiton-button-margin-top: 15px;
+	--settings-conformalMap-slider-container-width: 30px;
+}
+
+header {
+	display: flex;
+	justify-content: space-between;
+	z-index: 3;
+
+	width: 100%;
+	height: var(--header-height);
+
+	background-color: var(--grey);
+}
+
+header>*,
+header>*>* {
+	text-align: center;
+	align-items: center;
+
+	line-height: 58px;
+	font-size: 16px;
+}
+
+main {
+	position: relative;
+	width: 100%;
+	height: calc(100% - var(--header-height));
+}
+
+ul {
+	list-style: none;
+}
+
+.header-center {
+	line-height: 20px;
+	min-width: 410px;
+}
+
+.header-center>span+span {
+	margin-left: 35px;
+}
+
+.header-btn {
+	min-width: var(--settings-button-width);
+	outline: 3px solid var(--grey-dark-active);
+	outline-offset: -11px;
+}
+
+.header-btn:hover {
+	background-color: var(--grey-dark-hover)
+}
+
+.header-btn:active {
+	background-color: var(--grey-dark-active)
+}
+
+/*#header-dataList-btn {
+	width: var(--dataList-width);
+}
+
+#header-settings-btn {
+	width: var(--settings-width);
+}*/
+
+.panel {
+	display: block;
+	position: absolute;
+	top: 0;
+
+	z-index: 2;
+	height: 100%;
+
+	background-color: var(--grey);
+	border-top: 1px solid var(--grey-dark);
+}
+
+.panel-left {
+	left: 0;
+}
+
+.panel-right {
+	right: 0;
+}
+
+#render {
+	display: block;
+	width: 100%;
+	height: 100%;
+	background: white;
+}
+
+.animation-btn {
+	position: fixed;
+	top: calc(
+		  var(--header-height)
+		+ var(--animaiton-button-margin-top));
+	right: calc(
+		  var(--settings-conformalMap-slider-container-width)
+		+ var(--settings-width)/2
+		- var(--animaiton-button-width)/2);
+	z-index: 10;
+
+	width: var(--animaiton-button-width);
+	height: var(--animaiton-button-height);
+
+	color: #fff;
+	font-size: 16px;
+
+	background-color: var(--thematic);
+	border: none;
+	outline: 2px solid #fff;
+	outline-offset: -5px;
+}
+
+.animation-btn:active {
+	background-color: var(--thematic-dark);
+	outline: none;
+}
