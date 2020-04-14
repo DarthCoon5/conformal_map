@@ -1,0 +1,32 @@
+#dataList-panel {
+    width: var(--dataList-width);
+}
+
+.panel-left {
+    overflow: auto;
+}
+
+.panel-left ul li {
+	padding: 17px 3px 16px 20px;
+	min-height: 20px;
+	width: auto;
+
+    font-size: 15px;
+
+    border-bottom: 1px solid var(--grey-dark);
+}
+
+.panel-left ul li:hover {
+    background-color: var(--grey-dark);
+}
+
+.panel-left ul li:active {
+    background-color: var(--thematic-dark);
+}
+
+.panel-left .active,
+.panel-left .active:hover,
+.panel-left .active:active {
+    color: #fff;
+    background-color: var(--thematic);
+}
