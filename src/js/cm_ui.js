@@ -46,9 +46,8 @@ document.getElementById('header-settings-btn').addEventListener('click', functio
     settings_panel.style.display = settings_panel.style.display === '' ? 'none' : ''
 });
 
-// SETTINGS formal map
-const formalMap_slider_container = document.getElementById('slider-formalMap-container');
-const formalMap_settings = document.getElementById('settings-formalMap');
+// SETTINGS formal map coordinates' ranges
+
 
 
 // DATALIST Create and Display list

@@ -1,24 +1,14 @@
-let pan3d;
+let pan2d;
 let render_graph = document.getElementById('render');
 let grafar_obj_pin;
 
 const global_options = {
 	colors: {
-		default: [
-			grafar.constant(0).select(),
-			grafar.constant(0.549).select(),
-			grafar.constant(0.941).select()
-		],
-		discolored: [
-			grafar.range(0,0.85,2).select(),
-			grafar.range(0,0.85,2).select(),
-			grafar.range(0,0.85,2).select()
-		],
 		red: [
-			grafar.constant(1).select(),
+			grafar.range(0, 0.9, 2).select(),
 			grafar.constant(0).select(),
 			grafar.constant(0).select()
-		],
+		]
 	}
 };
 
@@ -38,13 +28,15 @@ function clearGrafar() {
 	// for (let member in grafar_1) delete grafar_1[member]; // nope
 
 	options = {
-		x: {
+		s: {
 			min: -2,
-			max: 2
+			max: 2,
+			count: 30
 		},
-		y: {
+		t: {
 			min: -2,
-			max: 2
+			max: 2,
+			count: 30
 		}
 	};
 
@@ -57,81 +49,108 @@ function runNewFunction() {
 	clearUITemplates();
 	clearGrafar();
 
-	// pan3d = null;
+	// pan2d = null;
 	// if (current_index in functions)
 
 	current_obj = func_data[current_index];
-	current_obj_vars = current_obj.param_func();
+	// current_obj_vars = current_obj.param_func();
 
-	pan3d = new grafar.Panel(render_graph);
-	grafar_obj_pin = grafar.pin({axes: current_obj_vars.main, color: global_options.colors.default}, pan3d);
+	conformalMap = new ConformalMap();
+	ConformalMapSliderOptionsUpdate();
+
+	pan2d = new grafar.Panel(render_graph);
+	pan2d.setAxes(['x', 'y']);
 
 	// if there's options
-
-	if (current_obj.x) {
-		if (current_obj.x.min !== undefined)
-			options.x.min = current_obj.x.min;
-		if (current_obj.x.max !== undefined)
-			options.x.max = current_obj.x.max;
+	if (current_obj.s) {
+		if (current_obj.s.min !== undefined)
+			options.s.min = current_obj.s.min;
+		if (current_obj.s.max !== undefined)
+			options.s.max = current_obj.s.max;
+		if (current_obj.s.count !== undefined)
+			options.s.count = current_obj.s.count;
 	}
-	if (current_obj.y) {
-		if (current_obj.y.min !== undefined)
-			options.y.min = current_obj.y.min;
-		if (current_obj.y.max !== undefined)
-			options.y.max = current_obj.y.max;
+	if (current_obj.t) {
+		if (current_obj.t.min !== undefined)
+			options.t.min = current_obj.t.min;
+		if (current_obj.t.max !== undefined)
+			options.t.max = current_obj.t.max;
+		if (current_obj.t.count !== undefined)
+			options.t.count = current_obj.t.count;
 	}
 
-	//
+	let s = grafar.range(options.s.min, options.s.max, options.s.count).select();
+	let t = grafar.range(options.t.min, options.t.max, options.t.count).select();
 
-	current_obj = {};
+	let axes = [
+		grafar.map([conformalMap.proportion, s, t], (p, s, t) => current_obj.trans_x(p, s, t)),
+		grafar.map([conformalMap.proportion, s, t], (p, s, t) => current_obj.trans_y(p, s, t))
+	];
+
+	grafar_obj_pin = grafar.pin({axes: axes, color: global_options.colors.red}, pan2d);
 }
 
 // ==========================================================================================================
 // 	CONFORMAL MAP
 // ==========================================================================================================
 
-let loop_param = 1;
-let loop_sgn = 1;
-let loop_stop = 1;
-
 function animaGo() {
-    loop_param += loop_sgn * 0.015;
+    if (conformalMap.animate) {
+    	conformalMap.makeStep();
 
-    if(loop_sgn*loop_param < loop_sgn*loop_stop) {
-        grafar.constant(loop_param).into(r);
-        grafar.refresh();
+	    if (conformalMap.freeToMove()) {
+	        conformalMap.move();
+	        grafar.refresh();
 
-        window.requestAnimationFrame(animaGo);
-    }
-    else {
-        loop_param -= loop_sgn * 0.02;
-        grafar.constant(loop_stop).into(r);
-        grafar.refresh();
-    }
+	        window.requestAnimationFrame(animaGo);
+	    } else {
+	    	conformalMap.moveToEnd();
+	        grafar.refresh();
+	    }
+
+	    ConformalMapSliderPosition(conformalMap.motion_pos);
+	}
 };
 
 document.getElementById('conformalMap-play-btn').addEventListener('click', function (e) {
 	e.preventDefault();
 
-	loop_sgn *= -1;
-	loop_stop = 1-loop_stop;
+	if (!conformalMap.animate) {
+		conformalMap.animateInvert();
+		animaGo();
+	} else {
+		conformalMap.motionInvert();
+	}
 
-	//animaGo();
 });
 
 
 const conformalMap_slider = document.getElementById('slider-conformalMap');
 // change slider
 conformalMap_slider.oninput = function() {
-	let num = Number(this.value);
-    let grafar_const = grafar.constant(num);
+	let num = Number(this.value)
 
-    // .update(num);
-	// grafar_const.into();
+	conformalMap.animate = false;
+
+	if (conformalMap.isMotionStop(num)) {
+		conformalMap.setPosition(num).moveToEnd();
+	} else {
+		conformalMap.setPosition(num).move();
+	}
 
     grafar.refresh();
 }
 
+function ConformalMapSliderOptionsUpdate() {
+	conformalMap_slider.step = 1 / conformalMap.moves_count;
+	conformalMap_slider.min = conformalMap.motion_stop1;
+	conformalMap_slider.max = conformalMap.motion_stop2 + (0.1 / conformalMap.moves_count);
+	conformalMap_slider.value = conformalMap.motion_pos;
+}
+
+function ConformalMapSliderPosition(value) {
+	conformalMap_slider.value = conformalMap.motion_pos;
+}
 
 // ==========================================================================================================
 // START

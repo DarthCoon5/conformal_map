@@ -1,5 +1,6 @@
 #dataList-panel {
-    width: var(--dataList-width);
+    min-width: 200px;
+    max-width: var(--dataList-width);
 }
 
 .panel-left {
@@ -7,7 +8,9 @@
 }
 
 .panel-left ul li {
-	padding: 17px 3px 16px 20px;
+    cursor: pointer;
+	padding: 17px 3px;
+    padding-left: 20px;
 	min-height: 20px;
 	width: auto;
 

@@ -16,7 +16,7 @@ body {
 	--thematic: #1955cd;
 	--thematic-dark: #204183;
 
-	--dataList-width: 330px;
+	--dataList-width: 300px;
 	--header-height: 60px;
 	--settings-width: 180px;
 	--settings-button-width: 100px;
@@ -66,6 +66,7 @@ ul {
 }
 
 .header-btn {
+	cursor: pointer;
 	min-width: var(--settings-button-width);
 	outline: 3px solid var(--grey-dark-active);
 	outline-offset: -11px;
@@ -124,6 +125,7 @@ ul {
 		+ var(--settings-width)/2
 		- var(--animaiton-button-width)/2);
 	z-index: 10;
+	cursor: pointer;
 
 	width: var(--animaiton-button-width);
 	height: var(--animaiton-button-height);
@@ -137,7 +139,12 @@ ul {
 	outline-offset: -5px;
 }
 
+.animation-btn:hover:not(:active) {
+	outline-offset: -4px;
+}
+
 .animation-btn:active {
 	background-color: var(--thematic-dark);
-	outline: none;
+	outline-width: 3px;
+	outline-offset: -6px;
 }

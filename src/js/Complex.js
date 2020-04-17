@@ -1,0 +1,192 @@
+class Complex {
+	constructor(re, im) {
+		if (re instanceof Complex) {
+			this._re = re.re;
+			this._im = re.im;
+		} else {
+			this._re = re || 0;
+			this._im = im || 0;
+		}
+	}
+
+	// get complex number
+	get re() {return this._re};
+	get im() {return this._im};
+
+	// count argument in polar form
+    get arg() {
+    	let a = this._re;
+		let b = this._im;
+
+    	let arg = Math.atan(b/a);
+		if (a < 0) arg += Math.PI;
+		if (a > 0 && b < 0) arg += 2*Math.PI;
+
+		return arg;
+    }
+
+    // count absolute value of a complex number
+    get abs() {
+    	let a = this._re;
+		let b = this._im;
+
+		return Math.sqrt(a*a + b*b);
+    }
+
+	// make complex number negative
+	static neg(num) {
+		if (!(num instanceof Complex))
+			num = new Complex(num);
+
+		return new Complex(-num.re, -num.im);
+	}
+
+	// addition
+	add(num) {
+		if (!(num instanceof Complex))
+			num = new Complex(num);
+
+      	this._re += num.re;
+      	this._im += num.im;
+
+      	return this;
+    }
+
+   	// subtraction
+    sub(num) {
+		if (!(num instanceof Complex))
+			num = new Complex(num);
+
+      	this._re -= num.re;
+      	this._im -= num.im;
+
+      	return this;
+    }
+
+    // multiplication
+    mult(num) {
+    	if (!(num instanceof Complex))
+			num = new Complex(num);
+
+		let a = this._re;
+		let b = this._im;
+		let c = num.re;
+		let d = num.im;
+
+      	this._re = a * c - b * d;
+      	this._im = a * d + b * c;
+
+      	return this;
+    }
+
+    // division
+    div(num) {
+    	if (!(num instanceof Complex))
+			num = new Complex(num);
+
+		let a = this._re;
+		let b = this._im;
+		let c = num.re;
+		let d = num.im;
+
+      	this._re = (a*c + b*d) / (c*c + d*d);
+      	this._im = (b*c - a*d) / (c*c + d*d);
+
+      	if (this._re === NaN)
+      		this._re = 0;
+      	if (this._im === NaN)
+      		this._im = 0;
+
+      	return this;
+    }
+
+    // power
+    pow(num) {
+    	if (!(num instanceof Complex))
+			num = new Complex(num);
+
+      	let a = this._re;
+		let b = this._im;
+		let c = num.re;
+		let d = num.im;
+
+		let round4 = (num) => Math.round(num*1000)/1000;
+
+		if (d === 0) {
+			let r = this.abs;
+			let arg = this.arg;
+
+			this._re = round4(Math.pow(r, c) * Math.cos(c*arg)) || 0;
+			this._im = round4(Math.pow(r, c) * Math.sin(c*arg)) || 0;
+
+			return this;
+		}
+
+		return Complex.exp(Complex.ln(this).mult(num))
+    }
+
+    // e to the power of complex number
+    static exp(num) {
+    	if (!(num instanceof Complex))
+			num = new Complex(num);
+
+		let round4 = (num) => Math.round(num*1000)/1000;
+
+		let e_x = Math.pow(Math.E, num.re);
+
+		return new Complex(
+			round4(e_x * Math.cos(num.im)),
+			round4(e_x * Math.sin(num.im))
+		);
+    }
+
+    // log_e of complex number
+    static ln(num) {
+    	if (!(num instanceof Complex))
+			num = new Complex(num);
+
+		let round4 = (num) => Math.round(num*1000)/1000;
+
+		let a = num.re;
+		let b = num.im;
+
+		let r = this.abs;
+		let arg = this.arg;
+
+		return new Complex(
+			round4(Math.log(r)),
+			round4(arg)
+		);
+    }
+
+    // num-th (not a complex num) root of a complex number
+    // returns array of complex numbers
+    root(num) {
+    	if (!(num instanceof Complex))
+			num = new Complex(num);
+
+		if (num.im !== 0 || num.re % 1 !== 0)
+			return [this];
+
+		let round4 = (num) => Math.round(num*1000)/1000;
+
+	  	let a = this._re;
+		let b = this._im;
+		let n = num.re;
+
+		let r = this.abs;
+		let r_pow = Math.pow(r, 1/n);
+		let arg = this.arg;
+
+		let res = new Array(n);
+
+		for (let k = 0; k < n; k++) {
+			res[k] = new Complex(
+				round4(r_pow * Math.cos((arg + 2 * Math.PI * k) / n)),
+				round4(r_pow * Math.sin((arg + 2 * Math.PI * k) / n))
+				);
+		}
+
+		return res;
+    }
+}
