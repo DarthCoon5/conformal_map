@@ -12,20 +12,11 @@ const global_options = {
 	}
 };
 
-
-// Clear all panel settings
-function clearUITemplates() {
-	//
-}
-
 // Clear grafar render
 function clearGrafar() {
 	while (render_graph.firstChild) {
 		render_graph.removeChild(render_graph.lastChild);
 	}
-
-	// grafar_1 = grafar;
-	// for (let member in grafar_1) delete grafar_1[member]; // nope
 
 	options = {
 		s: {
@@ -46,20 +37,9 @@ function clearGrafar() {
 
 // click/initialize new function 
 function runNewFunction() {
-	clearUITemplates();
 	clearGrafar();
 
-	// pan2d = null;
-	// if (current_index in functions)
-
 	current_obj = func_data[current_index];
-	// current_obj_vars = current_obj.param_func();
-
-	conformalMap = new ConformalMap();
-	ConformalMapSliderOptionsUpdate();
-
-	pan2d = new grafar.Panel(render_graph);
-	pan2d.setAxes(['x', 'y']);
 
 	// if there's options
 	if (current_obj.s) {
@@ -78,22 +58,36 @@ function runNewFunction() {
 		if (current_obj.t.count !== undefined)
 			options.t.count = current_obj.t.count;
 	}
+	if (current_obj.moves_count !== undefined)
+		options.moves_count = current_obj.moves_count;
 
-	let s = grafar.range(options.s.min, options.s.max, options.s.count).select();
-	let t = grafar.range(options.t.min, options.t.max, options.t.count).select();
+	updateUITemplates(options);
+
+	conformalMap = new ConformalMap(options);
+	ConformalMapSliderOptionsUpdate();
+
+	pan2d = new grafar.Panel(render_graph);
+	pan2d.setAxes(['x', 'y']);	
+
+	options.s_range = grafar.range(options.s.min, options.s.max, options.s.count).select();
+	options.t_range = grafar.range(options.t.min, options.t.max, options.t.count).select();
+	let trans = current_obj.transpositions();
 
 	let axes = [
-		grafar.map([conformalMap.proportion, s, t], (p, s, t) => current_obj.trans_x(p, s, t)),
-		grafar.map([conformalMap.proportion, s, t], (p, s, t) => current_obj.trans_y(p, s, t))
+		grafar.map([conformalMap.proportion, options.s_range, options.t_range], (p, s, t) => trans.trans_x(p, s, t)),
+		grafar.map([conformalMap.proportion, options.s_range, options.t_range], (p, s, t) => trans.trans_y(p, s, t))
 	];
 
 	grafar_obj_pin = grafar.pin({axes: axes, color: global_options.colors.red}, pan2d);
+
+	current_obj = {};
 }
 
 // ==========================================================================================================
 // 	CONFORMAL MAP
 // ==========================================================================================================
 
+// animate conformal mapping
 function animaGo() {
     if (conformalMap.animate) {
     	conformalMap.makeStep();
@@ -112,6 +106,7 @@ function animaGo() {
 	}
 };
 
+// click on the animation button 'play'
 document.getElementById('conformalMap-play-btn').addEventListener('click', function (e) {
 	e.preventDefault();
 
@@ -121,15 +116,18 @@ document.getElementById('conformalMap-play-btn').addEventListener('click', funct
 	} else {
 		conformalMap.motionInvert();
 	}
-
 });
 
 
 const conformalMap_slider = document.getElementById('slider-conformalMap');
 // change slider
 conformalMap_slider.oninput = function() {
-	let num = Number(this.value)
+	ConformalMapFrequency(Number(this.value));
 
+    grafar.refresh();
+}
+
+function ConformalMapFrequency(num) {
 	conformalMap.animate = false;
 
 	if (conformalMap.isMotionStop(num)) {
@@ -137,10 +135,9 @@ conformalMap_slider.oninput = function() {
 	} else {
 		conformalMap.setPosition(num).move();
 	}
-
-    grafar.refresh();
 }
 
+// base options for slider
 function ConformalMapSliderOptionsUpdate() {
 	conformalMap_slider.step = 1 / conformalMap.moves_count;
 	conformalMap_slider.min = conformalMap.motion_stop1;
@@ -148,9 +145,79 @@ function ConformalMapSliderOptionsUpdate() {
 	conformalMap_slider.value = conformalMap.motion_pos;
 }
 
+// set slider value 
 function ConformalMapSliderPosition(value) {
 	conformalMap_slider.value = conformalMap.motion_pos;
 }
+
+
+// ==========================================================================================================
+// NUMBER INPUTS
+// ==========================================================================================================
+
+function updateOptionS() {
+	grafar.range(options.s.min, options.s.max, options.s.count).into(options.s_range)
+	
+	console.log(options.s.min)
+	grafar.refresh();
+}
+
+function updateOptionT() {
+	grafar.range(options.t.min, options.t.max, options.t.count).into(options.t_range)
+	grafar.refresh();
+}
+
+function setConformalMapFrequency(value=1) {
+	conformalMap.moves_count = value;
+
+	ConformalMapFrequency(0);
+	ConformalMapSliderPosition(0);
+}
+
+function setOptionSMin(value=1) {
+	options.s.min = value;
+
+	if (value <= options.s.max)
+		updateOptionS();
+}
+
+function setOptionSMax(value=1) {
+	options.s.max = value;
+
+	if (value >= options.s.min)
+		updateOptionS();
+}
+
+function setOptionSCount(value=1) {
+	options.s.count = value;
+	updateOptionS();
+}
+
+function setOptionTMin(value=1) {
+	options.t.min = value;
+
+	if (value <= options.s.max)
+		updateOptionT();
+}
+
+function setOptionTMax(value=1) {
+	options.t.max = value;
+	
+	if (value >= options.t.min)
+		updateOptionT();
+}
+
+function setOptionTCount(value=1) {
+	options.t.count = value;
+	updateOptionT();
+}
+
+// click on the animation button 'play'
+document.getElementById('settings-reset-btn').addEventListener('click', function (e) {
+	e.preventDefault();
+
+	runNewFunction();
+});
 
 // ==========================================================================================================
 // START

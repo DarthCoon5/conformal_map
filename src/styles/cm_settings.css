@@ -8,36 +8,62 @@
 	height: 100%;
 }
 
-#settings-panel {
-	border-right: 1px solid var(--grey-dark);
+.settings-panel {
+    flex-direction: column;
+    overflow: auto;
+
+    margin-top: calc(
+          var(--animaiton-button-margin-top)
+        + var(--animaiton-button-height));
+
 	width: var(--settings-width);
+    height: 100%;
 }
 
+.panel-right>div {
+    border-right: 1px solid var(--grey-dark);
+}
+
+.settings-container>fieldset,
 .settings-container:not(.settings-panel) {
     border: 2px solid var(--thematic);
 }
 
 .settings-container {
     display: flex;
-    overflow: auto;
     padding: 15px;
-
-    min-height: 30px;
+    height: auto;
 }
 
-.settings-panel {
-    flex-direction: column;
+.settings-container>fieldset {
+    margin-top: 12px;
+    padding: 10px 12px;
 }
 
-.settings-container>div,
-.settings-container>label {
+.settings-container>fieldset>legend {
+    padding: 0 7px;
+    color: var(--thematic-dark)
+}
+
+.settings-container>fieldset>div {
+    display: block;
+    margin-bottom: 7px;
+}
+
+.settings-container>span,
+.settings-container>div {
 	display: block;
+    font-size: 14px;
 }
 
-.settings-container>div:first-child {
-    margin-top: calc(
-          var(--animaiton-button-margin-top)
-        + var(--animaiton-button-height));
+.settings-container>span,
+.settings-container>label {
+    margin-left: 15px;
+}
+
+.settings-container>span:first-child {
+    margin-bottom: 10px;
+    font-size: 16px;
 }
 
 .settings-container>div:not(:last-child) {
@@ -99,4 +125,18 @@
 
     background: var(--thematic);
     border-radius: 50%;
+}
+
+.settings-numbers {
+    width: 60px;
+}
+
+.settings-numbers + label {
+    float: left;
+    width: 40px;
+}
+
+span + .settings-numbers + label,
+span + .settings-numbers {
+    margin-top: 10px;
 }

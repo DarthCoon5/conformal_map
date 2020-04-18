@@ -47,8 +47,83 @@ document.getElementById('header-settings-btn').addEventListener('click', functio
 });
 
 // SETTINGS formal map coordinates' ranges
+function numberIsValid(num, obj) {
+    return num >= obj.min && num <= obj.max;
+}
 
+// move frequency
+const numbers_ConformalMap_frequency = document.getElementById('numbers-ConformalMap-frequency');
+numbers_ConformalMap_frequency.oninput = function() {
+    let num = Number(this.value);
 
+    if (numberIsValid(num, this))
+        setConformalMapFrequency(num);
+}
+
+// inputs for s variable
+const numbers_s_min = document.getElementById('numbers-s-min');
+numbers_s_min.oninput = function() {
+    let num = Number(this.value);
+
+    if (numberIsValid(num, this))
+        setOptionSMin(num);
+}
+
+const numbers_s_max = document.getElementById('numbers-s-max');
+numbers_s_max.oninput = function() {
+    let num = Number(this.value);
+
+    if (numberIsValid(num, this))
+        setOptionSMax(num);
+}
+
+const numbers_s_count = document.getElementById('numbers-s-count');
+numbers_s_count.oninput = function() {
+    let num = Number(this.value);
+
+    if (numberIsValid(num, this))
+        setOptionSCount(num);
+}
+
+// inputs for t variable
+const numbers_t_min = document.getElementById('numbers-t-min');
+numbers_t_min.oninput = function() {
+    let num = Number(this.value);
+
+    if (numberIsValid(num, this))
+        setOptionTMin(num);
+}
+
+const numbers_t_max = document.getElementById('numbers-t-max');
+numbers_t_min.oninput = function() {
+    let num = Number(this.value);
+
+    if (numberIsValid(num, this))
+        setOptionTMax(num);
+}
+
+const numbers_t_count = document.getElementById('numbers-t-count');
+numbers_t_count.oninput = function() {
+    let num = Number(this.value);
+
+    if (numberIsValid(num, this))
+        setOptionTCount(num);
+}
+
+// update all panel settings
+function updateUITemplates(obj) {
+    numbers_ConformalMap_frequency.value = obj.moves_count;
+
+    let round2 = (num) => Math.round(num*100)/100;
+
+    numbers_s_min.value = round2(obj.s.min);
+    numbers_s_max.value = round2(obj.s.max);
+    numbers_s_count.value = round2(obj.s.count);
+
+    numbers_t_min.value = round2(obj.t.min);
+    numbers_t_max.value = round2(obj.t.max);
+    numbers_t_count.value = round2(obj.t.count);
+}
 
 // DATALIST Create and Display list
 const dataList = document.getElementById('dataList');
