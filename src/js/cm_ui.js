@@ -95,7 +95,7 @@ numbers_t_min.oninput = function() {
 }
 
 const numbers_t_max = document.getElementById('numbers-t-max');
-numbers_t_min.oninput = function() {
+numbers_t_max.oninput = function() {
     let num = Number(this.value);
 
     if (numberIsValid(num, this))

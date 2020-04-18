@@ -125,8 +125,7 @@ ul {
 .controll-btn.settings-btn {
 	margin: 5px auto;
 	width: var(--controll-button-width);
-	height: var(--controll-button-height);
-
+	min-height: var(--controll-button-height);
 }
 
 .animation-btn.controll-btn {

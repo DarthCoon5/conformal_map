@@ -41,6 +41,10 @@ class Complex {
 		return new Complex(-num.re, -num.im);
 	}
 
+	static get I() {
+		return new Complex(0, 1);
+	}
+
 	// addition
 	add(num) {
 		if (!(num instanceof Complex))
@@ -150,12 +154,143 @@ class Complex {
 		let a = num.re;
 		let b = num.im;
 
-		let r = this.abs;
-		let arg = this.arg;
+		let r = num.abs;
+		let arg = num.arg;
 
 		return new Complex(
 			round4(Math.log(r)),
 			round4(arg)
+		);
+    }
+
+    // log_e of complex number
+    static joukowsky(num) {
+    	if (!(num instanceof Complex))
+			num = new Complex(num);
+
+		let round4 = (num) => Math.round(num*1000)/1000;
+
+		let a = num.re;
+		let b = num.im;
+
+		let res = new Complex(1).div(new Complex(a, b)).add(new Complex(a, b)).mult(0.5)
+
+		return new Complex(
+			round4(res.re),
+			round4(res.im)
+		);
+    }
+
+    // sin of complex number
+    static sin(num) {
+    	if (!(num instanceof Complex))
+			num = new Complex(num);
+
+		let round4 = (num) => Math.round(num*1000)/1000;
+
+		let a = num.re;
+		let b = num.im;
+
+		let res = Complex.joukowsky(Complex.exp(
+			Complex.I.mult(new Complex(a, b).sub(Math.PI/2))));
+
+		return new Complex(
+			round4(res.re),
+			round4(res.im)
+		);
+    }
+
+    // cos of complex number
+    static cos(num) {
+    	if (!(num instanceof Complex))
+			num = new Complex(num);
+
+		let round4 = (num) => Math.round(num*1000)/1000;
+
+		let a = num.re;
+		let b = num.im;
+
+		let res = Complex.joukowsky(Complex.exp(
+			Complex.I.mult(new Complex(a, b))));
+
+		return new Complex(
+			round4(res.re),
+			round4(res.im)
+		);
+    }
+
+    // tang of complex number
+    static tg(num) {
+    	if (!(num instanceof Complex))
+			num = new Complex(num);
+
+		let round4 = (num) => Math.round(num*1000)/1000;
+
+		let a = num.re;
+		let b = num.im;
+
+		let res = Complex.sin(new Complex(a, b))
+		.div(Complex.cos(new Complex(a, b)));
+
+		return new Complex(
+			round4(res.re),
+			round4(res.im)
+		);
+    }
+
+    // ctang of complex number
+    static ctg(num) {
+    	if (!(num instanceof Complex))
+			num = new Complex(num);
+
+		let round4 = (num) => Math.round(num*1000)/1000;
+
+		let a = num.re;
+		let b = num.im;
+
+		let res = Complex.cos(new Complex(a, b))
+		.div(Complex.sin(new Complex(a, b)));
+
+		return new Complex(
+			round4(res.re),
+			round4(res.im)
+		);
+    }
+
+    // sh of complex number
+    static sh(num) {
+    	if (!(num instanceof Complex))
+			num = new Complex(num);
+
+		let round4 = (num) => Math.round(num*1000)/1000;
+
+		let a = num.re;
+		let b = num.im;
+
+		let res = new Complex(0, -1).mult(
+			Complex.sin(Complex.I.mult(new Complex(a, b))))
+
+		return new Complex(
+			round4(res.re),
+			round4(res.im)
+		);
+    }
+
+    // ch of complex number
+    static ch(num) {
+    	if (!(num instanceof Complex))
+			num = new Complex(num);
+
+		let round4 = (num) => Math.round(num*1000)/1000;
+
+		let a = num.re;
+		let b = num.im;
+
+		let res = Complex.cos(Complex.I.mult(new Complex(a, b)))
+
+		return new Complex(
+			round4(res.re),
+			round4(res.im)
 		);
     }
 

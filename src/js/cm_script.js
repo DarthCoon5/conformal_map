@@ -2,14 +2,12 @@ let pan2d;
 let render_graph = document.getElementById('render');
 let grafar_obj_pin;
 
-const global_options = {
-	colors: {
-		red: [
-			grafar.range(0, 0.9, 2).select(),
-			grafar.constant(0).select(),
-			grafar.constant(0).select()
-		]
-	}
+const colors = {
+	red: [
+		grafar.range(0, 0.9, 2).select(),
+		grafar.constant(0).select(),
+		grafar.constant(0).select()
+	]
 };
 
 // Clear grafar render
@@ -18,18 +16,10 @@ function clearGrafar() {
 		render_graph.removeChild(render_graph.lastChild);
 	}
 
-	options = {
-		s: {
-			min: -2,
-			max: 2,
-			count: 30
-		},
-		t: {
-			min: -2,
-			max: 2,
-			count: 30
-		}
-	};
+	options = {};
+	options.s = global_options.s;
+	options.t = global_options.t;
+	options.moves_count = global_options.moves_count;
 
 	conformalMap = null;
 	grafar_obj_pin = null;
@@ -69,8 +59,9 @@ function runNewFunction() {
 	pan2d = new grafar.Panel(render_graph);
 	pan2d.setAxes(['x', 'y']);	
 
-	options.s_range = grafar.range(options.s.min, options.s.max, options.s.count).select();
-	options.t_range = grafar.range(options.t.min, options.t.max, options.t.count).select();
+	options.s_range = grafar.range(options.s.min, options.s.max, global_options.s_max).select();
+	options.t_range = grafar.range(options.t.min, options.t.max, global_options.t_max).select();
+
 	let trans = current_obj.transpositions();
 
 	let axes = [
@@ -78,7 +69,10 @@ function runNewFunction() {
 		grafar.map([conformalMap.proportion, options.s_range, options.t_range], (p, s, t) => trans.trans_y(p, s, t))
 	];
 
-	grafar_obj_pin = grafar.pin({axes: axes, color: global_options.colors.red}, pan2d);
+	grafar_obj_pin = grafar.pin({axes: axes, color: colors.red}, pan2d);
+
+	setTimeout(updateOptionS, 100);
+	setTimeout(updateOptionT, 100);
 
 	current_obj = {};
 }
@@ -156,14 +150,12 @@ function ConformalMapSliderPosition(value) {
 // ==========================================================================================================
 
 function updateOptionS() {
-	grafar.range(options.s.min, options.s.max, options.s.count).into(options.s_range)
-	
-	console.log(options.s.min)
+	grafar.range(options.s.min, options.s.max, options.s.count).into(options.s_range);
 	grafar.refresh();
 }
 
 function updateOptionT() {
-	grafar.range(options.t.min, options.t.max, options.t.count).into(options.t_range)
+	grafar.range(options.t.min, options.t.max, options.t.count).into(options.t_range);
 	grafar.refresh();
 }
 
@@ -188,7 +180,7 @@ function setOptionSMax(value=1) {
 		updateOptionS();
 }
 
-function setOptionSCount(value=1) {
+function setOptionSCount(value=5) {
 	options.s.count = value;
 	updateOptionS();
 }
@@ -196,7 +188,7 @@ function setOptionSCount(value=1) {
 function setOptionTMin(value=1) {
 	options.t.min = value;
 
-	if (value <= options.s.max)
+	if (value <= options.t.max)
 		updateOptionT();
 }
 
@@ -207,7 +199,7 @@ function setOptionTMax(value=1) {
 		updateOptionT();
 }
 
-function setOptionTCount(value=1) {
+function setOptionTCount(value=5) {
 	options.t.count = value;
 	updateOptionT();
 }

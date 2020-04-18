@@ -2,7 +2,7 @@
 
 <html lang="en">
 <head>
-	<title>Conformal map</title>
+	<title>Complex power functions</title>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
     <link rel="stylesheet" type="text/css" href="src/styles/cm_main.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="src/styles/cm_settings.css" media="screen" />
@@ -31,23 +31,23 @@
 				<div class="settings-panel settings-container">
 					<div id="settings-animation-frequency" class="settings-container">
 						<span class="settings-container-info">Step frequency</span>
-						<span class="settings-container-info">[1, 200]</span>
-						<input id="numbers-ConformalMap-frequency" class="settings-numbers" type="number" min="1" max="200" step="1">
+						<span class="settings-container-info">[1, 500]</span>
+						<input id="numbers-ConformalMap-frequency" class="settings-numbers" type="number" min="1" max="500" step="1">
 						<label for="numbers-ConformalMap-frequency">count</label>
 					</div>
 					<div id="settings-coordinates-ranges" class="settings-container">
 						<span class="settings-container-info">x(s, t), y(s, t)</span>
-						<span class="settings-container-info">ranges [-20, 20]</span>
+						<span class="settings-container-info">ranges [-200, 200]</span>
 						<span class="settings-container-info">counts [1, 100]</span>
 
 						<fieldset>
 							<legend>s</legend>
 							<div>
-								<input id="numbers-s-min" class="settings-numbers" type="number" min="-20" max="20" step="0.02">
+								<input id="numbers-s-min" class="settings-numbers" type="number" min="-200" max="200" step="0.02">
 								<label for="numbers-s-min">min</label>
 							</div>
 							<div>
-								<input id="numbers-s-max" class="settings-numbers" type="number" min="-20" max="20" step="0.02">
+								<input id="numbers-s-max" class="settings-numbers" type="number" min="-200" max="200" step="0.02">
 								<label for="numbers-s-max">max</label><br>
 							</div>
 							<div>
@@ -59,11 +59,11 @@
 						<fieldset>
 							<legend>t</legend>
 							<div>
-								<input id="numbers-t-min" class="settings-numbers" type="number" min="-20" max="20" step="0.02">
+								<input id="numbers-t-min" class="settings-numbers" type="number" min="-200" max="200" step="0.2">
 								<label for="numbers-t-min">min</label><br>
 							</div>
 							<div>
-								<input id="numbers-t-max" class="settings-numbers" type="number" min="-20" max="20" step="0.02">
+								<input id="numbers-t-max" class="settings-numbers" type="number" min="-200" max="200" step="0.2">
 								<label for="numbers-t-max">max</label><br>
 							</div>
 							<div>
@@ -85,7 +85,7 @@
 	</main>
 	
 
-	<script type="text/javascript" src="src/js/dataLists/test1.js"></script>
+	<script type="text/javascript" src="src/js/dataLists/complex_power_functions.js"></script>
 	<script type="text/javascript" src="src/js/cm_ui.js"></script>
 	<script type="text/javascript" src="src/js/grafar.js"></script>
 	<script type="text/javascript" src="src/js/Complex.js"></script>

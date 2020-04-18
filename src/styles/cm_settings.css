@@ -46,7 +46,9 @@
 }
 
 .settings-container>fieldset>div {
-    display: block;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
     margin-bottom: 7px;
 }
 
@@ -129,6 +131,7 @@
 
 .settings-numbers {
     width: 60px;
+    z-index: 10;
 }
 
 .settings-numbers + label {
