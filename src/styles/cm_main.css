@@ -103,6 +103,14 @@ ul {
 	right: 0;
 }
 
+.header-right>.header-btn{
+	display: inline-block;
+}
+
+.header-right>.header-q {
+	min-width: var(--header-height);
+}
+
 #render {
 	display: block;
 	width: 100%;

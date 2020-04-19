@@ -17,8 +17,14 @@ function clearGrafar() {
 	}
 
 	options = {};
-	options.s = global_options.s;
-	options.t = global_options.t;
+	options.s = {};
+	options.s.min = global_options.s.min;
+	options.s.max = global_options.s.max;
+	options.s.count = global_options.s.count;
+	options.t = {};
+	options.t.min = global_options.t.min;
+	options.t.max = global_options.t.max;
+	options.t.count = global_options.t.count;
 	options.moves_count = global_options.moves_count;
 
 	conformalMap = null;

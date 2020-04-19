@@ -79,21 +79,5 @@ const func_data = [
 		return global_options.transpositions(func_c);
 	}
 
-},{
-	katex_func: "f(z) =  \\sh z",
-
-	transpositions: function() {
-		let func_c = (a, b) => Complex.sh(new Complex(a, b));
-		return global_options.transpositions(func_c);
-	}
-
-},{
-	katex_func: "f(z) =  \\ch z",
-
-	transpositions: function() {
-		let func_c = (a, b) => Complex.ch(new Complex(a, b));
-		return global_options.transpositions(func_c);
-	}
-
 }
 ];

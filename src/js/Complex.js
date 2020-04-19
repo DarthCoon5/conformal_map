@@ -257,43 +257,6 @@ class Complex {
 		);
     }
 
-    // sh of complex number
-    static sh(num) {
-    	if (!(num instanceof Complex))
-			num = new Complex(num);
-
-		let round4 = (num) => Math.round(num*1000)/1000;
-
-		let a = num.re;
-		let b = num.im;
-
-		let res = new Complex(0, -1).mult(
-			Complex.sin(Complex.I.mult(new Complex(a, b))))
-
-		return new Complex(
-			round4(res.re),
-			round4(res.im)
-		);
-    }
-
-    // ch of complex number
-    static ch(num) {
-    	if (!(num instanceof Complex))
-			num = new Complex(num);
-
-		let round4 = (num) => Math.round(num*1000)/1000;
-
-		let a = num.re;
-		let b = num.im;
-
-		let res = Complex.cos(Complex.I.mult(new Complex(a, b)))
-
-		return new Complex(
-			round4(res.re),
-			round4(res.im)
-		);
-    }
-
     // num-th (not a complex num) root of a complex number
     // returns array of complex numbers
     root(num) {
