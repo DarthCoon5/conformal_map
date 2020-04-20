@@ -8,6 +8,7 @@ body {
 	height: 100vh;
 	overflow: hidden;
 	font-family: 'Roboto', sans-serif;
+	color: #222;
 
 	--grey: #ddd;
 	--grey-dark: #ccc;
@@ -103,11 +104,17 @@ ul {
 	right: 0;
 }
 
-.header-right>.header-btn{
-	display: inline-block;
-}
+.header-q {
+	position: fixed;
+	top: 0;
+	right: var(--settings-button-width);
 
-.header-right>.header-q {
+	height: var(--header-height);
+	min-width: var(--header-height);
+
+	color: #444;
+	font-weight: 600;
+	font-size: 20px;
 	min-width: var(--header-height);
 }
 

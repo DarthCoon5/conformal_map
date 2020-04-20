@@ -48,18 +48,22 @@ const func_data = [
 	}
 
 },{
-	katex_func: "f(z) =  \\sin z",
+	katex_func: "f(z) =  \\cfrac{z^2 + 1}{2z}",
 
 	transpositions: function() {
-		let func_c = (a, b) => Complex.sin(new Complex(a, b));
+		let func_c = (a, b) => new Complex(a, b).pow(2).add(1).div(new Complex(a, b).mult(2));
 		return global_options.transpositions(func_c);
 	}
 
 },{
-	katex_func: "f(z) =  \\cos z",
+	katex_func: "f(z) =  \\cfrac{w^2 + 1}{1 - w^2}, w = \\cfrac{z-1}{z+1}",
 
 	transpositions: function() {
-		let func_c = (a, b) => Complex.cos(new Complex(a, b));
+		let func_c = function(a, b) {
+			let func_c1 = (a1, b1) => new Complex(a1, b1).sub(1).div(new Complex(a1, b1).add(1)).pow(2);
+			let c = func_c1(a, b);
+			return new Complex(c.re, c.im).add(1).div(new Complex(1).sub(new Complex(c.re, c.im)))
+		}
 		return global_options.transpositions(func_c);
 	}
 
