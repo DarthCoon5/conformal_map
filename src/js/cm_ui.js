@@ -46,10 +46,84 @@ document.getElementById('header-settings-btn').addEventListener('click', functio
     settings_panel.style.display = settings_panel.style.display === '' ? 'none' : ''
 });
 
-// SETTINGS formal map
-const formalMap_slider_container = document.getElementById('slider-formalMap-container');
-const formalMap_settings = document.getElementById('settings-formalMap');
+// SETTINGS formal map coordinates' ranges
+function numberIsValid(num, obj) {
+    return num >= obj.min && num <= obj.max;
+}
 
+// move frequency
+const numbers_ConformalMap_frequency = document.getElementById('numbers-ConformalMap-frequency');
+numbers_ConformalMap_frequency.oninput = function() {
+    let num = Number(this.value);
+
+    if (numberIsValid(num, this))
+        setConformalMapFrequency(num);
+}
+
+// inputs for s variable
+const numbers_s_min = document.getElementById('numbers-s-min');
+numbers_s_min.oninput = function() {
+    let num = Number(this.value);
+
+    if (numberIsValid(num, this))
+        setOptionSMin(num);
+}
+
+const numbers_s_max = document.getElementById('numbers-s-max');
+numbers_s_max.oninput = function() {
+    let num = Number(this.value);
+
+    if (numberIsValid(num, this))
+        setOptionSMax(num);
+}
+
+const numbers_s_count = document.getElementById('numbers-s-count');
+numbers_s_count.oninput = function() {
+    let num = Number(this.value);
+
+    if (numberIsValid(num, this))
+        setOptionSCount(num);
+}
+
+// inputs for t variable
+const numbers_t_min = document.getElementById('numbers-t-min');
+numbers_t_min.oninput = function() {
+    let num = Number(this.value);
+
+    if (numberIsValid(num, this))
+        setOptionTMin(num);
+}
+
+const numbers_t_max = document.getElementById('numbers-t-max');
+numbers_t_max.oninput = function() {
+    let num = Number(this.value);
+
+    if (numberIsValid(num, this))
+        setOptionTMax(num);
+}
+
+const numbers_t_count = document.getElementById('numbers-t-count');
+numbers_t_count.oninput = function() {
+    let num = Number(this.value);
+
+    if (numberIsValid(num, this))
+        setOptionTCount(num);
+}
+
+// update all panel settings
+function updateUITemplates(obj) {
+    numbers_ConformalMap_frequency.value = obj.moves_count;
+
+    let round2 = (num) => Math.round(num*100)/100;
+
+    numbers_s_min.value = round2(obj.s.min);
+    numbers_s_max.value = round2(obj.s.max);
+    numbers_s_count.value = round2(obj.s.count);
+
+    numbers_t_min.value = round2(obj.t.min);
+    numbers_t_max.value = round2(obj.t.max);
+    numbers_t_count.value = round2(obj.t.count);
+}
 
 // DATALIST Create and Display list
 const dataList = document.getElementById('dataList');
@@ -67,7 +141,8 @@ const header_katex_info = document.getElementById('header-katex-info');
 // update text in header panel
 function updateHeaderPanel() {
     katex.render(katex_str(func_data[current_index].katex_func), header_katex_func, {throwOnError: false});
-    header_katex_info.innerHTML = func_data[current_index].katex_info || '';
+    katex.render(katex_str(func_data[current_index].katex_info || ''), header_katex_info, {throwOnError: false});
+    // header_katex_info.innerHTML = func_data[current_index].katex_info || '';
 }
 
 // run scripts on datalist item click

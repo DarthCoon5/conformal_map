@@ -1,0 +1,98 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+	<title>Complex power functions</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+    <link rel="stylesheet" type="text/css" href="src/styles/cm_main.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="src/styles/cm_settings.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="src/styles/cm_dataList.css" media="screen" />
+
+    <link rel="stylesheet" type="text/css" href="src/katex/katex.min.css">
+	<script src="src/katex/katex.min.js"></script>
+</head>
+
+<body>
+	<header>
+		<div id="header-dataList-btn" class="header-btn header-left">List</div>
+		<div id="header-content-container" class="header-center">
+			<span id="header-katex-func">func</span>
+			<span id="header-katex-info">info</span>
+		</div>
+		<div class="header-btn header-q" onclick="
+			alert('EDU HSE CSF BSE175 Solonichenko A. 2020\nVisualization of conformal maps\n\nPick the function on the List and press Play or move the slider to start animation, set parameters values (ranges, frequency) in the Settings.\nHave fun!');
+		">?</div>
+		<div id="header-settings-btn" class="header-btn header-right">Settings</div>
+	</header>
+	<main>
+		<div id="render"></div>
+		<div id="dataList-panel" class="panel panel-left">
+			<ul id="dataList"></ul>
+		</div>
+		<div class="panel panel-right">
+			<div id="settings-panel" >
+				<div class="settings-panel settings-container">
+					<div id="settings-animation-frequency" class="settings-container">
+						<span class="settings-container-info">Step frequency</span>
+						<span class="settings-container-info">[1, 500]</span>
+						<input id="numbers-ConformalMap-frequency" class="settings-numbers" type="number" min="1" max="500" step="1">
+						<label for="numbers-ConformalMap-frequency">count</label>
+					</div>
+					<div id="settings-coordinates-ranges" class="settings-container">
+						<span class="settings-container-info">x(s, t), y(s, t)</span>
+						<span class="settings-container-info">ranges [-200, 200]</span>
+						<span class="settings-container-info">counts [1, 100]</span>
+
+						<fieldset>
+							<legend>s</legend>
+							<div>
+								<input id="numbers-s-min" class="settings-numbers" type="number" min="-200" max="200" step="0.02">
+								<label for="numbers-s-min">min</label>
+							</div>
+							<div>
+								<input id="numbers-s-max" class="settings-numbers" type="number" min="-200" max="200" step="0.02">
+								<label for="numbers-s-max">max</label><br>
+							</div>
+							<div>
+								<input id="numbers-s-count" class="settings-numbers" type="number" min="1" max="100" step="1">
+								<label for="numbers-s-count">count</label>
+							</div>
+						</fieldset>
+
+						<fieldset>
+							<legend>t</legend>
+							<div>
+								<input id="numbers-t-min" class="settings-numbers" type="number" min="-200" max="200" step="0.2">
+								<label for="numbers-t-min">min</label><br>
+							</div>
+							<div>
+								<input id="numbers-t-max" class="settings-numbers" type="number" min="-200" max="200" step="0.2">
+								<label for="numbers-t-max">max</label><br>
+							</div>
+							<div>
+								<input id="numbers-t-count" class="settings-numbers" type="number" min="1" max="100" step="1">
+								<label for="numbers-t-count">count</label>
+							</div>
+						</fieldset>
+					</div>
+					<button id="settings-reset-btn" class="controll-btn settings-btn"><span>Reset</span></button>
+				</div>
+			</div>
+			<div id="slider-conformalMap-container" class="settings-panel-slider-container">
+				<div>
+		  			<input type="range" id="slider-conformalMap" class="settings-panel-slider" min="0" max="1" value="1">
+		  		</div>
+			</div>
+		</div>
+		<button id="conformalMap-play-btn" class="animation-btn controll-btn"><span>Play</span></button>
+	</main>
+	
+
+	<script type="text/javascript" src="src/js/dataLists/complex_power_functions.js"></script>
+	<script type="text/javascript" src="src/js/cm_ui.js"></script>
+	<script type="text/javascript" src="src/js/grafar.js"></script>
+	<script type="text/javascript" src="src/js/Complex.js"></script>
+	<script type="text/javascript" src="src/js/ConformalMap.js"></script>
+	<script type="text/javascript" src="src/js/cm_script.js"></script>
+	</body>
+</html>

@@ -8,6 +8,7 @@ body {
 	height: 100vh;
 	overflow: hidden;
 	font-family: 'Roboto', sans-serif;
+	color: #222;
 
 	--grey: #ddd;
 	--grey-dark: #ccc;
@@ -16,11 +17,13 @@ body {
 	--thematic: #1955cd;
 	--thematic-dark: #204183;
 
-	--dataList-width: 330px;
-	--header-height: 60px;
-	--settings-width: 180px;
+	--dataList-width: 300px;
+	--header-height: 62px;
+	--settings-width: 220px;
 	--settings-button-width: 100px;
-	--animaiton-button-width: 140px;
+	--controll-button-width: 110px;
+	--controll-button-height: 34px;
+	--animaiton-button-width: 150px;
 	--animaiton-button-height: 42px;
 	--animaiton-button-margin-top: 15px;
 	--settings-conformalMap-slider-container-width: 30px;
@@ -42,8 +45,8 @@ header>*>* {
 	text-align: center;
 	align-items: center;
 
-	line-height: 58px;
-	font-size: 16px;
+	line-height: calc(var(--header-height) - 2px);
+	font-size: 15px;
 }
 
 main {
@@ -54,11 +57,13 @@ main {
 
 ul {
 	list-style: none;
+	min-width: var(--settings-width)
+	width: fit-content;
 }
 
 .header-center {
-	line-height: 20px;
-	min-width: 410px;
+	width: calc(100% - 2*var(--header-height) - 2*var(--settings-button-width) + 2px);
+	overflow: auto;
 }
 
 .header-center>span+span {
@@ -66,6 +71,7 @@ ul {
 }
 
 .header-btn {
+	cursor: pointer;
 	min-width: var(--settings-button-width);
 	outline: 3px solid var(--grey-dark-active);
 	outline-offset: -11px;
@@ -78,14 +84,6 @@ ul {
 .header-btn:active {
 	background-color: var(--grey-dark-active)
 }
-
-/*#header-dataList-btn {
-	width: var(--dataList-width);
-}
-
-#header-settings-btn {
-	width: var(--settings-width);
-}*/
 
 .panel {
 	display: block;
@@ -107,6 +105,20 @@ ul {
 	right: 0;
 }
 
+.header-q {
+	position: fixed;
+	top: 0;
+	right: var(--settings-button-width);
+
+	height: var(--header-height);
+	min-width: var(--header-height);
+
+	color: #444;
+	font-weight: 600;
+	font-size: 20px;
+	min-width: var(--header-height);
+}
+
 #render {
 	display: block;
 	width: 100%;
@@ -114,7 +126,25 @@ ul {
 	background: white;
 }
 
-.animation-btn {
+.controll-btn {
+	cursor: pointer;
+	
+	color: #fff;
+	font-size: 14px;
+
+	background-color: var(--thematic);
+	border: none;
+	outline: 2px solid #fff;
+	outline-offset: -5px;
+}
+
+.controll-btn.settings-btn {
+	margin: 5px auto;
+	width: var(--controll-button-width);
+	min-height: var(--controll-button-height);
+}
+
+.animation-btn.controll-btn {
 	position: fixed;
 	top: calc(
 		  var(--header-height)
@@ -128,16 +158,15 @@ ul {
 	width: var(--animaiton-button-width);
 	height: var(--animaiton-button-height);
 
-	color: #fff;
 	font-size: 16px;
-
-	background-color: var(--thematic);
-	border: none;
-	outline: 2px solid #fff;
-	outline-offset: -5px;
 }
 
-.animation-btn:active {
+.controll-btn:hover:not(:active) {
+	outline-offset: -4px;
+}
+
+.controll-btn:active {
 	background-color: var(--thematic-dark);
-	outline: none;
+	outline-width: 3px;
+	outline-offset: -6px;
 }

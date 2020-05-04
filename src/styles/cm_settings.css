@@ -8,36 +8,64 @@
 	height: 100%;
 }
 
-#settings-panel {
-	border-right: 1px solid var(--grey-dark);
+.settings-panel {
+    flex-direction: column;
+    overflow: auto;
+
+    margin-top: calc(
+          var(--animaiton-button-margin-top)
+        + var(--animaiton-button-height));
+
 	width: var(--settings-width);
+    height: 100%;
 }
 
+.panel-right>div {
+    border-right: 1px solid var(--grey-dark);
+}
+
+.settings-container>fieldset,
 .settings-container:not(.settings-panel) {
     border: 2px solid var(--thematic);
 }
 
 .settings-container {
     display: flex;
-    overflow: auto;
     padding: 15px;
-
-    min-height: 30px;
+    height: auto;
 }
 
-.settings-panel {
-    flex-direction: column;
+.settings-container>fieldset {
+    margin-top: 12px;
+    padding: 10px 12px;
 }
 
-.settings-container>div,
-.settings-container>label {
+.settings-container>fieldset>legend {
+    padding: 0 7px;
+    color: var(--thematic-dark)
+}
+
+.settings-container>fieldset>div {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    margin-bottom: 7px;
+}
+
+.settings-container>span,
+.settings-container>div {
 	display: block;
+    font-size: 14px;
 }
 
-.settings-container>div:first-child {
-    margin-top: calc(
-          var(--animaiton-button-margin-top)
-        + var(--animaiton-button-height));
+.settings-container>span,
+.settings-container>label {
+    margin-left: 15px;
+}
+
+.settings-container>span:first-child {
+    margin-bottom: 10px;
+    font-size: 16px;
 }
 
 .settings-container>div:not(:last-child) {
@@ -59,7 +87,7 @@
 .settings-panel-slider {
     -webkit-appearance: none;
 
-    width: calc(100vh - var(--header-height) - 200px);
+    width: calc(100vh - var(--header-height) - 260px);
     height: 7px;
 
     transform: rotate(-90deg);
@@ -99,4 +127,19 @@
 
     background: var(--thematic);
     border-radius: 50%;
+}
+
+.settings-numbers {
+    width: 60px;
+    z-index: 10;
+}
+
+.settings-numbers + label {
+    float: left;
+    width: 40px;
+}
+
+span + .settings-numbers + label,
+span + .settings-numbers {
+    margin-top: 10px;
 }
