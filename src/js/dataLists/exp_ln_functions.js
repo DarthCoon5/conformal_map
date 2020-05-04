@@ -15,21 +15,43 @@ const global_options = {
 	func_x: (s, t) => {return t},
 	func_y: (s, t) => {return s},
 
-	transpositions: function(func_c) {
+	transpositions: function(func_c, condition = {}) {
+		let fits = {};
+		fits.z_re = condition.z_re || function() {return true};
+		fits.z_im = condition.z_im || function() {return true};
+		fits.fz_re = condition.fz_re || function() {return true};
+		fits.fz_im = condition.fz_im || function() {return true};
+
 		return {
 			trans_x: function(p, s, t) {
 				let fx = global_options.func_x(s, t);
-				let fy = global_options.func_y(s, t);
-				let c = func_c(fx, fy);
 
-				return p * fx + (1 - p) * c.re;
+				if (fits.z_re(fx)) {
+					let fy = global_options.func_y(s, t);
+
+					if (fits.z_im(fy)) {
+						let c = func_c(fx, fy);
+						let res = p * fx + (1 - p) * c.re;
+
+						if (fits.fz_re(res))
+							return res;
+					}
+				}
 			},
 			trans_y: function(p, s, t) {
 				let fx = global_options.func_x(s, t);
-				let fy = global_options.func_y(s, t);
-				let c = func_c(fx, fy);
 
-				return p * fy + (1 - p) * c.im;
+				if (fits.z_re(fx)) {
+					let fy = global_options.func_y(s, t);
+
+					if (fits.z_im(fy)) {
+						let c = func_c(fx, fy);
+						let res = p * fy + (1 - p) * c.im;
+
+						if (fits.fz_im(res))
+							return res;
+					}
+				}
 			}
 		}
 	},
@@ -40,14 +62,22 @@ const global_options = {
 const func_data = [
 {
 	katex_func: "f(z) =  e^{z}",
+	katex_info: "0 < Im(z) < \\cfrac{\\pi}{2}",
 
 	transpositions: function() {
 		let func_c = (a, b) => Complex.exp(new Complex(a, b));
-		return global_options.transpositions(func_c);
+
+		return global_options.transpositions(func_c)
+	},
+
+	s: {
+		min: 0.0001,
+		max: Math.PI / 2,
+		count: 20
 	}
 
 },{	
-	katex_func: "f(z) =  exp \\left( \\cfrac{\\pi (1 - iz)}{z - i} \\right)",
+	katex_func: "f(z) = exp \\left( \\cfrac{\\pi (1 - iz)}{z - i} \\right)",
 
 	transpositions: function() {
 		let func_c = (a, b) => Complex.exp(new Complex(Math.PI)

@@ -18,7 +18,7 @@ body {
 	--thematic-dark: #204183;
 
 	--dataList-width: 300px;
-	--header-height: 60px;
+	--header-height: 62px;
 	--settings-width: 220px;
 	--settings-button-width: 100px;
 	--controll-button-width: 110px;
@@ -45,8 +45,8 @@ header>*>* {
 	text-align: center;
 	align-items: center;
 
-	line-height: 58px;
-	font-size: 16px;
+	line-height: calc(var(--header-height) - 2px);
+	font-size: 15px;
 }
 
 main {
@@ -57,11 +57,12 @@ main {
 
 ul {
 	list-style: none;
+	min-width: var(--settings-width)
+	width: fit-content;
 }
 
 .header-center {
-	min-width: 200px;
-	line-height: 20px;
+	width: calc(100% - 2*var(--header-height) - 2*var(--settings-button-width) + 2px);
 	overflow: auto;
 }
 

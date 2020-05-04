@@ -141,7 +141,8 @@ const header_katex_info = document.getElementById('header-katex-info');
 // update text in header panel
 function updateHeaderPanel() {
     katex.render(katex_str(func_data[current_index].katex_func), header_katex_func, {throwOnError: false});
-    header_katex_info.innerHTML = func_data[current_index].katex_info || '';
+    katex.render(katex_str(func_data[current_index].katex_info || ''), header_katex_info, {throwOnError: false});
+    // header_katex_info.innerHTML = func_data[current_index].katex_info || '';
 }
 
 // run scripts on datalist item click

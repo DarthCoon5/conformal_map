@@ -63,7 +63,8 @@ function runNewFunction() {
 	ConformalMapSliderOptionsUpdate();
 
 	pan2d = new grafar.Panel(render_graph);
-	pan2d.setAxes(['x', 'y']);	
+	pan2d.setAxes(['x', 'y']);
+	pan2d.controls.noPan = false;
 
 	options.s_range = grafar.range(options.s.min, options.s.max, global_options.s_max).select();
 	options.t_range = grafar.range(options.t.min, options.t.max, global_options.t_max).select();
@@ -150,6 +151,11 @@ function ConformalMapSliderPosition(value) {
 	conformalMap_slider.value = conformalMap.motion_pos;
 }
 
+// set slider step 
+function ConformalMapSliderStepUpdate(value) {
+	conformalMap_slider.step = 1 / conformalMap.moves_count;
+}
+
 
 // ==========================================================================================================
 // NUMBER INPUTS
@@ -169,6 +175,7 @@ function setConformalMapFrequency(value=1) {
 	conformalMap.moves_count = value;
 
 	ConformalMapFrequency(0);
+	ConformalMapSliderStepUpdate();
 	ConformalMapSliderPosition(0);
 }
 

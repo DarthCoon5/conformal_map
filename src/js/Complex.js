@@ -50,10 +50,7 @@ class Complex {
 		if (!(num instanceof Complex))
 			num = new Complex(num);
 
-      	this._re += num.re;
-      	this._im += num.im;
-
-      	return this;
+      	return new Complex(this._re + num.re, this._im + num.im);
     }
 
    	// subtraction
@@ -61,10 +58,7 @@ class Complex {
 		if (!(num instanceof Complex))
 			num = new Complex(num);
 
-      	this._re -= num.re;
-      	this._im -= num.im;
-
-      	return this;
+      	return new Complex(this._re - num.re, this._im - num.im);
     }
 
     // multiplication
@@ -77,10 +71,7 @@ class Complex {
 		let c = num.re;
 		let d = num.im;
 
-      	this._re = a * c - b * d;
-      	this._im = a * d + b * c;
-
-      	return this;
+      	return new Complex(a * c - b * d, a * d + b * c);
     }
 
     // division
@@ -93,15 +84,15 @@ class Complex {
 		let c = num.re;
 		let d = num.im;
 
-      	this._re = (a*c + b*d) / (c*c + d*d);
-      	this._im = (b*c - a*d) / (c*c + d*d);
+      	let z_re = (a*c + b*d) / (c*c + d*d);
+      	let z_im = (b*c - a*d) / (c*c + d*d);
 
-      	if (this._re === NaN)
-      		this._re = 0;
-      	if (this._im === NaN)
-      		this._im = 0;
+      	if (z_re === NaN)
+      		z_re = 0;
+      	if (z_im === NaN)
+      		z_im = 0;
 
-      	return this;
+      	return new Complex(z_re, z_im);
     }
 
     // power
@@ -120,10 +111,10 @@ class Complex {
 			let r = this.abs;
 			let arg = this.arg;
 
-			this._re = round4(Math.pow(r, c) * Math.cos(c*arg)) || 0;
-			this._im = round4(Math.pow(r, c) * Math.sin(c*arg)) || 0;
-
-			return this;
+			return new Complex(
+				round4(Math.pow(r, c) * Math.cos(c*arg)) || 0,
+				round4(Math.pow(r, c) * Math.sin(c*arg)) || 0
+			)
 		}
 
 		return Complex.exp(Complex.ln(this).mult(num))
@@ -282,9 +273,36 @@ class Complex {
 			res[k] = new Complex(
 				round4(r_pow * Math.cos((arg + 2 * Math.PI * k) / n)),
 				round4(r_pow * Math.sin((arg + 2 * Math.PI * k) / n))
-				);
+			);
 		}
 
 		return res;
+    }
+
+    // num-th (not a complex num) root of a complex number
+    // returns array of complex numbers
+    rooti(num, i) {
+    	if (!(num instanceof Complex))
+			num = new Complex(num);
+
+		if (num.im !== 0 || num.re % 1 !== 0 || !Object.is(i % 1, 0) || i >= num.re)
+			return [this];
+
+		let round4 = (num) => Math.round(num*1000)/1000;
+
+	  	let a = this._re;
+		let b = this._im;
+		let n = num.re;
+
+		let r = this.abs;
+		let r_pow = Math.pow(r, 1/n);
+		let arg = this.arg;
+
+		let res = new Array(n);
+
+		return new Complex(
+			round4(r_pow * Math.cos((arg + 2 * Math.PI * i) / n)),
+			round4(r_pow * Math.sin((arg + 2 * Math.PI * i) / n))
+		);
     }
 }
