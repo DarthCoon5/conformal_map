@@ -15,18 +15,22 @@ const global_options = {
 	func_x: (s, t) => {return t * Math.cos(s)},
 	func_y: (s, t) => {return t * Math.sin(s)},
 
-	transpositions: function(func_c) {
+	transpositions: function(func) {
+		let func_c = func.func_c || func;
+		let func_x = func.func_x || global_options.func_x;
+		let func_y = func.func_y || global_options.func_y;
+
 		return {
 			trans_x: function(p, s, t) {
-				let fx = global_options.func_x(s, t);
-				let fy = global_options.func_y(s, t);
+				let fx = func_x(s, t);
+				let fy = func_y(s, t);
 				let c = func_c(fx, fy);
 
 				return p * fx + (1 - p) * c.re;
 			},
 			trans_y: function(p, s, t) {
-				let fx = global_options.func_x(s, t);
-				let fy = global_options.func_y(s, t);
+				let fx = func_x(s, t);
+				let fy = func_y(s, t);
 				let c = func_c(fx, fy);
 
 				return p * fy + (1 - p) * c.im;
@@ -38,12 +42,26 @@ const global_options = {
 };
 
 const func_data = [
+
 {
 	katex_func: "f(z) =  \\cfrac{1}{z - 1}",
 
 	transpositions: function() {
 		let func_c = (a, b) => new Complex(1).div(new Complex(a, b).sub(1));
 		return global_options.transpositions(func_c);
+	}
+
+},{
+	katex_func: "f(z) =  \\cfrac{z}{z - 1}",
+
+	transpositions: function() {
+		let func_c = (a, b) => new Complex(a, b).div(new Complex(a, b).sub(1));
+		return global_options.transpositions(func_c);
+	},
+
+	s: {
+		max: Math.PI / 4,
+		count: 15
 	}
 
 },{	
@@ -68,6 +86,54 @@ const func_data = [
 	transpositions: function() {
 		let func_c = (a, b) => (Complex.I).sub(new Complex(a, b).mult(Complex.I)).div(new Complex(a, b).add(2));
 		return global_options.transpositions(func_c);
+	}
+
+},{
+	katex_func: "f(z) =  \\cfrac{z-1}{z}",
+
+	transpositions: function() {
+		let func = {
+			func_x: (s, t) => {return s},
+			func_y: (s, t) => {return t},
+			func_c: (a, b) => new Complex(a - 1, b).div(new Complex(a, b))
+		};
+
+		return global_options.transpositions(func);
+	},
+
+	s: {
+		min: -2,
+		max: 2,
+		count: 40
+	},
+	t: {
+		min: 0.0001,
+		max: 1,
+		count: 20
+	}
+
+},{
+	katex_func: "f(z) =  \\cfrac{z-1}{z-2}",
+
+	transpositions: function() {
+		let func = {
+			func_x: (s, t) => {return s},
+			func_y: (s, t) => {return t},
+			func_c: (a, b) => new Complex(a - 1, b).div(new Complex(a - 2, b))
+		};
+
+		return global_options.transpositions(func);
+	},
+
+	s: {
+		min: -2,
+		max: 2,
+		count: 40
+	},
+	t: {
+		min: 0.0001,
+		max: 1,
+		count: 20
 	}
 
 }

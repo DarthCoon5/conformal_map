@@ -57,7 +57,7 @@ main {
 
 ul {
 	list-style: none;
-	min-width: var(--settings-width)
+	min-width: var(--settings-width);
 	width: fit-content;
 }
 

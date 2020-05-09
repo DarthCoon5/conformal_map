@@ -63,8 +63,9 @@ function runNewFunction() {
 	ConformalMapSliderOptionsUpdate();
 
 	pan2d = new grafar.Panel(render_graph);
-	pan2d.setAxes(['x', 'y']);
+	pan2d.setAxes(['Re', 'Im']);
 	pan2d.controls.noPan = false;
+	pan2d.camera.position.set(0, 6);
 
 	options.s_range = grafar.range(options.s.min, options.s.max, global_options.s_max).select();
 	options.t_range = grafar.range(options.t.min, options.t.max, global_options.t_max).select();
