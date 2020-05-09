@@ -42,7 +42,47 @@ const global_options = {
 };
 
 const func_data = [
+{
+	katex_func: "f(z) =  \\cfrac{z}{z}",
 
+	transpositions: function() {
+		let func_x = (s, t) => {return t * Math.sin(s)};
+		let func_y = (s, t) => {return t * Math.cos(s)};
+		let func_c1 = (a, b) => new Complex(a, b-1).div(new Complex(a-0.2, b));
+		let func_c2 = (a, b) => new Complex(a - 1, b).div(new Complex(a - 2, b));
+
+		return {
+			trans_x: function(p, s, t) {
+				let fx = func_x(s, t);
+				let fy = func_y(s, t);
+				let c1 = func_c1(fx, fy);
+				let c2 = func_c2(fx, fy);
+
+				return p * c1.re + (1 - p) * c2.re;
+			},
+			trans_y: function(p, s, t) {
+				let fx = func_x(s, t);
+				let fy = func_y(s, t);
+				let c1 = func_c1(fx, fy);
+				let c2 = func_c2(fx, fy);
+
+				return p * c1.im + (1 - p) * c2.im;
+			}
+		}
+	},
+
+	s: {
+		min: -2,
+		max: 2,
+		count: 40
+	},
+	t: {
+		min: 0.0001,
+		max: 1,
+		count: 20
+	}
+
+},
 {
 	katex_func: "f(z) =  \\cfrac{1}{z - 1}",
 
