@@ -17,16 +17,18 @@ body {
 	--thematic: #1955cd;
 	--thematic-dark: #204183;
 
-	--dataList-width: 300px;
-	--header-height: 62px;
-	--settings-width: 220px;
-	--settings-button-width: 100px;
-	--controll-button-width: 110px;
-	--controll-button-height: 34px;
-	--animaiton-button-width: 150px;
-	--animaiton-button-height: 42px;
-	--animaiton-button-margin-top: 15px;
-	--settings-conformalMap-slider-container-width: 30px;
+	--etalon: calc(100vh / 750);
+
+	--dataList-width: calc(300 * var(--etalon));
+	--header-height: calc(62 * var(--etalon));
+	--settings-width: calc(220 * var(--etalon));
+	--settings-button-width: calc(100 * var(--etalon));
+	--controll-button-width: calc(110 * var(--etalon));
+	--controll-button-height: calc(34 * var(--etalon));
+	--animaiton-button-width: calc(150 * var(--etalon));
+	--animaiton-button-height: calc(42 * var(--etalon));
+	--animaiton-button-margin-top: calc(15 * var(--etalon));
+	--settings-conformalMap-slider-container-width: calc(30 * var(--etalon));
 }
 
 header {
@@ -45,8 +47,8 @@ header>*>* {
 	text-align: center;
 	align-items: center;
 
-	line-height: calc(var(--header-height) - 2px);
-	font-size: 15px;
+	line-height: calc(var(--header-height) - calc(2 * var(--etalon)));
+	font-size: calc(15 * var(--etalon));
 }
 
 main {
@@ -62,19 +64,19 @@ ul {
 }
 
 .header-center {
-	width: calc(100% - 2*var(--header-height) - 2*var(--settings-button-width) + 2px);
+	width: calc(100% - 2*var(--header-height) - 2*var(--settings-button-width) + calc(2 * var(--etalon)));
 	overflow: auto;
 }
 
 .header-center>span+span {
-	margin-left: 35px;
+	margin-left: calc(35 * var(--etalon));
 }
 
 .header-btn {
 	cursor: pointer;
 	min-width: var(--settings-button-width);
-	outline: 3px solid var(--grey-dark-active);
-	outline-offset: -11px;
+	outline: calc(3 * var(--etalon)) solid var(--grey-dark-active);
+	outline-offset: calc(-11 * var(--etalon));
 }
 
 .header-btn:hover {
@@ -94,7 +96,7 @@ ul {
 	height: 100%;
 
 	background-color: var(--grey);
-	border-top: 1px solid var(--grey-dark);
+	border-top: calc(1 * var(--etalon)) solid var(--grey-dark);
 }
 
 .panel-left {
@@ -115,7 +117,7 @@ ul {
 
 	color: #444;
 	font-weight: 600;
-	font-size: 20px;
+	font-size: calc(20 * var(--etalon));
 	min-width: var(--header-height);
 }
 
@@ -130,16 +132,16 @@ ul {
 	cursor: pointer;
 	
 	color: #fff;
-	font-size: 14px;
+	font-size: calc(14 * var(--etalon));
 
 	background-color: var(--thematic);
 	border: none;
-	outline: 2px solid #fff;
-	outline-offset: -5px;
+	outline: calc(2 * var(--etalon)) solid #fff;
+	outline-offset: calc(-5 * var(--etalon));
 }
 
 .controll-btn.settings-btn {
-	margin: 5px auto;
+	margin: calc(5 * var(--etalon)) auto;
 	width: var(--controll-button-width);
 	min-height: var(--controll-button-height);
 }
@@ -158,15 +160,15 @@ ul {
 	width: var(--animaiton-button-width);
 	height: var(--animaiton-button-height);
 
-	font-size: 16px;
+	font-size: calc(16 * var(--etalon));
 }
 
 .controll-btn:hover:not(:active) {
-	outline-offset: -4px;
+	outline-offset: calc(-4 * var(--etalon));
 }
 
 .controll-btn:active {
 	background-color: var(--thematic-dark);
-	outline-width: 3px;
-	outline-offset: -6px;
+	outline-width: calc(3 * var(--etalon));
+	outline-offset: calc(-6 * var(--etalon));
 }

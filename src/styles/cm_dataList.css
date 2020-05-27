@@ -1,5 +1,5 @@
 #dataList-panel {
-    min-width: 200px;
+    min-width: calc(200 * var(--etalon));
     max-width: var(--dataList-width);
 }
 
@@ -9,14 +9,14 @@
 
 .panel-left ul li {
     cursor: pointer;
-	padding: 17px 3px;
-    padding-left: 20px;
-	min-height: 20px;
+	padding: calc(17 * var(--etalon)) calc(3 * var(--etalon));
+    padding-left: calc(20 * var(--etalon));
+	min-height: calc(20 * var(--etalon));
 	width: auto;
 
-    font-size: 15px;
+    font-size: calc(15 * var(--etalon));
 
-    border-bottom: 1px solid var(--grey-dark);
+    border-bottom: calc(1 * var(--etalon)) solid var(--grey-dark);
 }
 
 .panel-left ul li:hover {

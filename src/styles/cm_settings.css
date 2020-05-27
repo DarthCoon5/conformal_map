@@ -21,27 +21,27 @@
 }
 
 .panel-right>div {
-    border-right: 1px solid var(--grey-dark);
+    border-right: calc(1 * var(--etalon)) solid var(--grey-dark);
 }
 
 .settings-container>fieldset,
 .settings-container:not(.settings-panel) {
-    border: 2px solid var(--thematic);
+    border: calc(2 * var(--etalon)) solid var(--thematic);
 }
 
 .settings-container {
     display: flex;
-    padding: 15px;
+    padding: calc(15 * var(--etalon));
     height: auto;
 }
 
 .settings-container>fieldset {
-    margin-top: 12px;
-    padding: 10px 12px;
+    margin-top: calc(12 * var(--etalon));
+    padding: calc(10 * var(--etalon)) calc(12 * var(--etalon));
 }
 
 .settings-container>fieldset>legend {
-    padding: 0 7px;
+    padding: 0 calc(7 * var(--etalon));
     color: var(--thematic-dark)
 }
 
@@ -49,27 +49,27 @@
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
-    margin-bottom: 7px;
+    margin-bottom: calc(7 * var(--etalon));
 }
 
 .settings-container>span,
 .settings-container>div {
 	display: block;
-    font-size: 14px;
+    font-size: calc(14 * var(--etalon));
 }
 
 .settings-container>span,
 .settings-container>label {
-    margin-left: 15px;
+    margin-left: calc(15 * var(--etalon));
 }
 
 .settings-container>span:first-child {
-    margin-bottom: 10px;
-    font-size: 16px;
+    margin-bottom: calc(10 * var(--etalon));
+    font-size: calc(16 * var(--etalon));
 }
 
 .settings-container>div:not(:last-child) {
-    margin-bottom: 10px;
+    margin-bottom: calc(10 * var(--etalon));
 }
 
 .settings-panel-slider-container {
@@ -87,8 +87,8 @@
 .settings-panel-slider {
     -webkit-appearance: none;
 
-    width: calc(100vh - var(--header-height) - 260px);
-    height: 7px;
+    width: calc(100vh - var(--header-height) - calc(260 * var(--etalon)));
+    height: calc(7 * var(--etalon));
 
     transform: rotate(-90deg);
     -webkit-transform: rotate(-90deg);
@@ -98,7 +98,7 @@
     -webkit-transition: .2s;
     
     background: #777;
-    border-radius: 5px;
+    border-radius: calc(5 * var(--etalon));
     outline: none;
 }
 
@@ -110,8 +110,8 @@
     -webkit-appearance: none;
     appearance: none;
 
-    width: 18px;
-    height: 18px;
+    width: calc(18 * var(--etalon));
+    height: calc(18 * var(--etalon));
 
     cursor: pointer;
 
@@ -120,8 +120,8 @@
 }
 
 .settings-panel-slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
+    width: calc(25 * var(--etalon));
+    height: calc(25 * var(--etalon));
 
     cursor: pointer;
 
@@ -130,16 +130,16 @@
 }
 
 .settings-numbers {
-    width: 60px;
+    width: calc(60 * var(--etalon));
     z-index: 10;
 }
 
 .settings-numbers + label {
     float: left;
-    width: 40px;
+    width: calc(40 * var(--etalon));
 }
 
 span + .settings-numbers + label,
 span + .settings-numbers {
-    margin-top: 10px;
+    margin-top: calc(10 * var(--etalon));
 }
