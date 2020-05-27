@@ -9,8 +9,8 @@ const global_options = {
 		max: 1,
 		count: 20
 	},
-	s_max: 100,
-	t_max: 100,
+	s_max: 300,
+	t_max: 300,
 
 	func_x: (s, t) => {return t * Math.cos(s)},
 	func_y: (s, t) => {return t * Math.sin(s)},
@@ -61,7 +61,11 @@ const func_data = [
 
 	s: {
 		max: Math.PI / 4,
-		count: 15
+		count: 40
+	},
+	t: {
+		max: 37,
+		count: 260
 	}
 
 },{	
@@ -102,14 +106,14 @@ const func_data = [
 	},
 
 	s: {
-		min: -2,
-		max: 2,
-		count: 40
+		min: -10,
+		max: 10,
+		count: 271
 	},
 	t: {
 		min: 0.0001,
 		max: 1,
-		count: 20
+		count: 30
 	}
 
 },{
@@ -126,14 +130,14 @@ const func_data = [
 	},
 
 	s: {
-		min: -2,
-		max: 2,
-		count: 40
+		min: -12,
+		max: 12,
+		count: 151
 	},
 	t: {
 		min: 0.0001,
 		max: 1,
-		count: 20
+		count: 50
 	}
 
 }
