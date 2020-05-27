@@ -17,6 +17,8 @@ body {
 	--thematic: #1955cd;
 	--thematic-dark: #204183;
 
+	/* bad style on px */
+
 	--dataList-width: 300px;
 	--header-height: 62px;
 	--settings-width: 220px;
