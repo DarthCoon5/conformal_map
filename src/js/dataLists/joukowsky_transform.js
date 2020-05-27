@@ -118,23 +118,24 @@ const func_data = [
 		let func_y = (s, t) => {return t * Math.sinh(s)};
 		let func_c = (a, b, t, i) => 
 			new Complex(a, b).add(new Complex(a, b).pow(2).sub(5*t*t).rooti(root, i))
-			.div(Math.sqrt(5 * t * t)).mult(Complex.exp(new Complex(0, -alpha)))
+			.div(Math.sqrt(5*t*t)).mult(Complex.exp(new Complex(0, -alpha)))
 			.pow(Math.PI/2/alpha);
 
 		return {
 			trans_x: function(p, s, t) {
 				let fx = func_x(s, t);
 				let fy = func_y(s, t);
-				let c = func_c(fx, fy, t, global_options.countRootI(s, root));
+				let c = func_c(fx, fy, t, s*t >= 0 ? 0 : 1);
 
-				return p * fx + (1 - p) * c.re;
+				if (c.im > 0)
+					return p * fx + (1 - p) * c.re;
 			},
 			trans_y: function(p, s, t) {
 				let fx = func_x(s, t);
 				let fy = func_y(s, t);
-				let c = func_c(fx, fy, t, global_options.countRootI(s, root));
+				let c = func_c(fx, fy, t, s*t >= 0 ? 0 : 1);
 
-				if (p * fy + (1 - p) * c.im >= 0)
+				if (c.im > 0)
 					return p * fy + (1 - p) * c.im;
 			}
 		}
@@ -148,7 +149,7 @@ const func_data = [
 	t: {
 		min: -1,
 		max: 1,
-		count: 20
+		count: 41
 	}
 
 }
