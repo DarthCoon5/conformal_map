@@ -109,6 +109,12 @@ function dataListItemClick(item, index) {
 
     let settings_html = '';
 
+    // color check
+    settings_html += '<div id="settings-checkbox" class="settings-container">'+
+                        '<input id="color-check" class="settings-checkbox" type="checkbox">'+
+                        '<label for="color-check">color</label>'+
+                    '</div>';
+
     // step frequency
     settings_html += '<div id="settings-animation-frequency" class="settings-container">'+
                         '<span class="settings-container-info">Step frequency</span>'+
@@ -168,6 +174,12 @@ function dataListItemClick(item, index) {
 
 // ==========================================================================================================
 // ==========================================================================================================
+
+
+// SETTINGS rainbow/red check
+document.getElementById('color-check').addEventListener('change', function() {
+    coloredTransform(this.checked);
+})
 
 
 // SETTINGS formal map coordinates' ranges
