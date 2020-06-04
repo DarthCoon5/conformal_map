@@ -4,9 +4,14 @@ let grafar_obj_pin;
 
 const colors = {
 	red: [
-		grafar.range(0, 0.9, 2).select(),
-		grafar.constant(0).select(),
-		grafar.constant(0).select()
+		grafar.range(0, 0.9, 2),
+		grafar.range(0, 0, 2),
+		grafar.range(0, 0, 2)
+	],
+	rainbow: [
+		grafar.range(0, 0, 2),
+		grafar.range(0, 0.9, 2),
+		grafar.range(0, 0, 2)
 	]
 };
 
@@ -57,6 +62,14 @@ function runNewFunction() {
 	if (current_obj.moves_count !== undefined)
 		options.moves_count = current_obj.moves_count;
 
+	if (!global_options.color) {
+		global_options.color = [
+			colors.red[0].select(),
+			colors.red[1].select(),
+			colors.red[2].select()
+		];
+	}
+
 	updateUITemplates(options);
 
 	conformalMap = new ConformalMap(options);
@@ -77,7 +90,7 @@ function runNewFunction() {
 		grafar.map([conformalMap.proportion, options.s_range, options.t_range], (p, s, t) => trans.trans_y(p, s, t))
 	];
 
-	grafar_obj_pin = grafar.pin({axes: axes, color: colors.red}, pan2d);
+	grafar_obj_pin = grafar.pin({axes: axes, color: global_options.color}, pan2d);
 
 	setTimeout(updateOptionS, 100);
 	setTimeout(updateOptionT, 100);
@@ -157,6 +170,13 @@ function ConformalMapSliderStepUpdate(value) {
 	conformalMap_slider.step = 1 / conformalMap.moves_count;
 }
 
+function coloredTransform(flag=true) {
+	let color = flag? colors.rainbow : colors.red;
+
+	color[0].into(global_options.color[0])
+	color[1].into(global_options.color[1])
+	color[2].into(global_options.color[2])
+}
 
 // ==========================================================================================================
 // NUMBER INPUTS

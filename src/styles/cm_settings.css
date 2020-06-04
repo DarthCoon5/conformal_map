@@ -143,3 +143,51 @@ span + .settings-numbers + label,
 span + .settings-numbers {
     margin-top: calc(10 * var(--etalon));
 }
+
+
+.settings-checkbox {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+}
+
+.settings-checkbox + label {
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+}
+
+.settings-checkbox + label::before {
+    content: '';
+    margin-right: calc(10 * var(--etalon));
+    display: inline-block;
+    vertical-align: text-top;
+    width: calc(20 * var(--etalon));
+    height: calc(20 * var(--etalon));
+    background: white;
+}
+
+.settings-checkbox:hover + label::before {
+    background: var(--grey-dark-hover);
+}
+
+.settings-checkbox:focus + label::before {
+    box-shadow: 0 0 0 calc(3 * var(--etalon)) rgba(0, 0, 0, 0.12);
+}
+
+.settings-checkbox:checked + label::before {
+    background: var(--thematic);
+}
+
+.settings-checkbox:checked + label::after {
+    content: '';
+    position: absolute;
+    left: calc(5 * var(--etalon));
+    top: calc(9 * var(--etalon));
+    background: white;
+    width: calc(2 * var(--etalon));
+    height: calc(2 * var(--etalon));
+    box-shadow: calc(2 * var(--etalon)) 0 0 white, calc(4 * var(--etalon)) 0 0 white, calc(4 * var(--etalon)) calc(-2 * var(--etalon)) 0 white, calc(4 * var(--etalon)) calc(-4 * var(--etalon)) 0 white, calc(4 * var(--etalon)) calc(-6 * var(--etalon)) 0 white, calc(4 * var(--etalon)) calc(-8 * var(--etalon)) 0 white;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
