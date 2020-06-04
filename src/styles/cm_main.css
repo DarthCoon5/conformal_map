@@ -17,7 +17,7 @@ body {
 	--thematic: #1955cd;
 	--thematic-dark: #204183;
 
-	--etalon: calc(100vh / 750);
+	--etalon: 1px;
 
 	--dataList-width: calc(300 * var(--etalon));
 	--header-height: calc(62 * var(--etalon));
