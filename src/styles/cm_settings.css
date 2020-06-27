@@ -87,7 +87,7 @@
 .settings-panel-slider {
     -webkit-appearance: none;
 
-    width: calc(100vh - var(--header-height) - calc(260 * var(--etalon)));
+    width: calc((100vh - var(--header-height)) * 0.6);
     height: calc(7 * var(--etalon));
 
     transform: rotate(-90deg);

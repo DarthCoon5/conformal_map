@@ -31,6 +31,27 @@ body {
 	--settings-conformalMap-slider-container-width: calc(30 * var(--etalon));
 }
 
+@media screen and (min-device-width: 3840px) {
+	body {--etalon: 1.5px;}
+}
+
+@media screen and (min-device-width: 1921px) and (max-device-width: 3839px) {
+	body {--etalon: 1.3px;}
+}
+
+@media screen and (min-device-width: 1024px) and (max-device-width: 1920px) {
+	body {--etalon: 1px;}
+}
+
+@media screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+	body {--etalon: 1.5px;}
+}
+
+@media screen and (max-device-width: 767px) {
+	body {--etalon: 2px;}
+}
+
+
 header {
 	display: flex;
 	justify-content: space-between;
